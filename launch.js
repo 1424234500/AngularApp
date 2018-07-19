@@ -65,7 +65,16 @@ app
 }])
 // 系统事件处理
 .run(['$rootScope', 'Socket', 
-function ($rootScope, Socket) { 
+function ($rootScope, Socket) {
+    $rootScope.loading = true;
+    $rootScope.openLoading = function(){
+        $rootScope.loading = true;
+    };
+    $rootScope.closeLoading = function(){
+        $rootScope.loading = false;
+    };
+
+
   // 用户登录成功
   $rootScope.$on('system:login', function () {
       info("收到事件system:login")

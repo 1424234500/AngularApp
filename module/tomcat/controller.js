@@ -16,8 +16,8 @@ angular.module('com.tomcat')
      
     $scope.goHome = function(){ 
         $state.go('main.tomcat');
-    }  
-
+    }
+    $scope.query = "";
     $scope.statis = function(){ 
         //debugger; 
         var params = {"URL":$scope.query};  

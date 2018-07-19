@@ -3,51 +3,123 @@
         <div class="span12">
             <h3>
                 {{mName}}管理
-            </h3>  
-      
-  
+            </h3>
 
-   <div class="panel panel-info">
-<ul class="nav nav-tabs">
-    <li class="active">
-        <a ng-click="goHome()" href="#">列表</a>
-    </li>
-    <li class="disabled">
-        <a href="#">管理</a>
-    </li>
-    <li class="dropdown pull-right">
-         <a href="#" data-toggle="dropdown" class="dropdown-toggle">更多<strong class="caret"></strong></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a href="#">操作</a>
-            </li> 
-            <li class="divider">
-            </li>
-            <li>
-                <a href="#">分割线</a>
-            </li>
-        </ul>
-    </li>
-</ul> 
-         
-               <div ui-view>
-                        子模块内容
+
+
+            <div class="panel panel-success" style="min-height: 400px;">
+
+                <div class="navbar-form navbar-left" style="width:100%;">
+                    <input type="text" ng-model="dir" id="path" class="form-control" style="width:40%;" ng-keydown="keydown($event)" placeholder="dir">
+                    <input type="text" ng-model="search.NAME" class="form-control" placeholder="name" ng-keydown="keydown($event)">
+                    <button class="btn" ng-click="list()">查询</button>
+
+                    <div   style="float:right;">
+                        <form id="myform" name="myform"  method="post" style="float:right;" >
+                            <fieldset>
+                                <input style="width:250px;float:left;"  class="btn" type="file" id="file" name="file" width="120px">
+                                <button onclick="uploadFile();"  class="btn">提交</button>
+                            </fieldset>
+                        </form>
+                        <div id="son" style="background: #FF00FF;margin:0 auto;text-align:center;"></div>
+                    </div>
                 </div>
-                
-    </div>  
-         
-    <div class="panel panel-success"> 
-        <div class="panel-body">
-               <div class="navbar-form navbar-left" > 
-                    <input type="text" ng-model="chart.TIMEFROM" id="charttimefrom" data-date-format="yyyy" class="form-control" placeholder="chart.TIMEFROM">
-                    <input type="text" ng-model="chart.TIMETO" id="charttimeto" data-date-format="yyyy" class="form-control" placeholder="chart.TIMETO"> 
-                    <button class="btn" ng-click="statis()" >查询</button> 
-                </div> 
-        </div> 
-            <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-            <div id="echarts" class="echart-big"></div>
-                 
-    </div> 
+                <div class="clear"/>
+
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th> No.</th>
+                            <th> NAME</th>
+                            <th> SIZE</th>
+                            <th> TIME</th>
+
+                            <th> UPDATE</th>
+                            <th> DELETE</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <!--
+                                        res.add("PATH");
+                                        res.add("NAME");
+                                        res.add("SIZE");
+                                        res.add("LENGTH");
+                                        res.add("TIME");
+                                        res.add("TYPE");
+                                        res.add("CHILDS")-->
+                        <!-- filter:search -->
+                        <tr ng-click="goBack()"><td></td><td class="abtn" >上级目录</td></tr>
+                        <tr ng-repeat="item in httplist | filter:search "
+                            ng-style="{'backgroundColor': ( (item['TYPE']=='dir' && item['CHILDS'] > 0)? '#C3D6E8' : (item['TYPE']=='dir'?'#F0F0F0':'#FFFFFF'  ) ) }">
+                            <td class="info">{{$index + 1}}</td>
+                            <td class="abtn" ng-click="clickFile(item)">{{item["NAME"]}}</td>
+                            <td>
+                                <div ng-show="item['LENGTH'] > 0">{{item["SIZE"]}}</div>
+                            </td>
+                            <td>{{item["TIME"]}}</td>
+
+                            <td>
+                                <a ng-click="goUpdate(item['PATH'])" class="abtn"> 修改</a>
+                            </td>
+                            <td>
+                                <a ng-click="ajaxDelete(item['PATH'])" class="abtn"> 删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+
+
+            <div class="panel panel-info">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a ng-click="goHome()" href="#">列表</a>
+                    </li>
+                    <li class="disabled">
+                        <a href="#">管理</a>
+                    </li>
+                    <li class="dropdown pull-right">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">更多<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">操作</a>
+                            </li>
+                            <li class="divider">
+                            </li>
+                            <li>
+                                <a href="#">分割线</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div ui-view>
+                    子模块内容
+                </div>
+
+            </div>
+
+
+
+
+            <!--   <div class="panel panel-success">
+                   <div class="panel-body">
+                       <div class="navbar-form navbar-left" >
+                           <input type="text" ng-model="chart.TIMEFROM" id="charttimefrom" data-date-format="yyyy" class="form-control" placeholder="chart.TIMEFROM">
+                           <input type="text" ng-model="chart.TIMETO" id="charttimeto" data-date-format="yyyy" class="form-control" placeholder="chart.TIMETO">
+                           <button class="btn" ng-click="statis()" >查询</button>
+                       </div>
+                   </div>
+                   &lt;!&ndash; 为 ECharts 准备一个具备大小（宽高）的 DOM &ndash;&gt;
+                   <div id="echarts" class="echart-big"></div>
+
+               </div>-->
 
 
         </div>
@@ -56,3 +128,51 @@
 </div>
 
 
+
+<script type="text/javascript">
+    function uploadFile(){
+        var url = "/BaseSSM/file/upload.do";
+        var pic = $("#file").get(0).files[0];
+        var formData = new FormData();
+        $("#son").html( 0 +"%" );
+        $("#son").css("width", 0 +"%" );
+        formData.append("file" , pic);
+        formData.append("path" , $("#path").val());
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData ,
+            processData : false,
+            contentType : false , //必须false才会自动加上正确的Content-Type
+            xhr: function(){
+                var xhr = $.ajaxSettings.xhr();
+                if(onprogress && xhr.upload) {
+                    xhr.upload.addEventListener("progress" , onprogress, false);
+                    return xhr;
+                }
+            },
+            error: function(request) {
+                alert("操作异常");
+            },
+            success: function(data) {
+                var res = parseInt(data);
+                if(res >= 1){
+//                    alert("操作成功！");
+                    //goBack();
+                }else{
+                    alert("操作失败!");
+                }
+            }
+        });
+    }
+    // 侦查附件上传情况 ,这个方法大概0.05-0.1秒执行一次
+    function onprogress(evt){
+        var loaded = evt.loaded;     //已经上传大小情况
+        var tot = evt.total;           //附件总大小
+        var per = Math.floor(100*loaded/tot);  //已经上传的百分比
+        $("#son").html( per +"%" );
+        $("#son").css("width", per +"%" );
+
+    }
+
+</script>

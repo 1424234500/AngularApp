@@ -30,7 +30,7 @@ function resOk(result){
     return result ? true:false;
 }
 function openUrl(url){
-    window.open(url);
+    window.open(encodeURI(url));
     // window.location.href="http://www.100sucai.com/";     //在同当前窗口中打开窗口
     // window.open("http://www.100sucai.com/");                 //在另外新建窗口中打开窗口
 }

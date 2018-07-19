@@ -27,6 +27,17 @@ angular.module('com.file')
         return params;
     }
 
+    //获取文件夹及文件字段列表
+    service.fileCols = function(params){
+        params = service.make(params);
+        return baseService.post('/' + $PROJECT + '/' + mName + '/fileCols.do', params);
+    };
+    service.fileDir = function(params){
+        params = service.make(params);
+        return baseService.post('/' + $PROJECT + '/' + mName + '/fileDir.do', params);
+    };
+
+
     //获取表字段列表
     service.cols = function(params){ 
         params = service.make(params);

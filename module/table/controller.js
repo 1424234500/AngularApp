@@ -150,7 +150,7 @@ angular.module('com.table')
     //加载表信息
     tableService.cols().then(
         function (data) {
-            $rootScope.cols = data.res;
+            $rootScope.cols = data;
             closeLoading();
             loadPage();
     }, error);
