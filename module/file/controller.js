@@ -62,10 +62,15 @@ angular.module('com.file')
         $scope.name = "";
         $scope.list();
     };
-    $scope.list = function(){
+
+    $scope.list = function(ifNewDir){
         var params = {};
         params["dir"] = $scope.dir;
-        params["name"] = $scope.name;
+        if($scope.search.NAME)
+            params["name"] = $scope.search.NAME;
+        if(ifNewDir)
+            params["newdir"] = true;
+            $scope.search.NAME = "";
         fileService.fileDir(params).then(
             function (data) {
                 $scope.httplist = data;
