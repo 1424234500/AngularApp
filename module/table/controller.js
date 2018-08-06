@@ -121,7 +121,7 @@ angular.module('com.table')
             params = $.extend({}, PAGE, search); 
             tableService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.res;
+                    $scope.httplist = data.LIST;
                     $scope.PAGE = data.PAGE; 
                     $scope.ppp = calcPage($scope.PAGE);
 

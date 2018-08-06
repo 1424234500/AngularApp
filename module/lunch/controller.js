@@ -113,8 +113,8 @@ angular.module('com.lunch')
             params = $.extend({}, PAGE, search); 
             lunchService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.res;
-                    $scope.PAGE = data.PAGE; 
+                    $scope.httplist = data.LIST;
+                    $scope.PAGE = data.PAGE;
                     $scope.ppp = calcPage($scope.PAGE);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);

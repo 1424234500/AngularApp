@@ -112,7 +112,7 @@ angular.module('com.dinner')
             params = $.extend({}, PAGE, search); 
             dinnerService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.res;
+                    $scope.httplist = data.LIST;
                     $scope.PAGE = data.PAGE; 
                     $scope.ppp = calcPage($scope.PAGE);
 
