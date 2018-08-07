@@ -53,7 +53,7 @@ angular.module('com.dinner')
         var params =  $scope.httpget;
         dinnerService.add(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
         }, error); 
     };
@@ -77,7 +77,7 @@ angular.module('com.dinner')
         var params = $scope.httpget;
         dinnerService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome(); 
             }, error);  
 
@@ -109,11 +109,11 @@ angular.module('com.dinner')
         $scope.list = function(){ 
             var PAGE = $scope.PAGE;
             var search = $scope.search;
-            params = $.extend({}, PAGE, search); 
+            var params = $.extend({}, PAGE, search);
             dinnerService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.LIST;
-                    $scope.PAGE = data.PAGE; 
+                    $scope.httplist = data.list;
+                    $scope.PAGE = data.page;
                     $scope.ppp = calcPage($scope.PAGE);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);
@@ -130,8 +130,8 @@ angular.module('com.dinner')
             var params = {};
             params[$rootScope.cols[0]] = id;
             dinnerService.del(params).then(
-                function (data) { 
-                    info("操作数据:" + data.res + "条");
+                function (data) {
+                    info("操作数据:" + data + "条");
                     $scope.list(); 
             }, error);  
 
@@ -141,7 +141,7 @@ angular.module('com.dinner')
     //加载表信息
     dinnerService.cols().then(
         function (data) {
-            $rootScope.cols = data.res;
+            $rootScope.cols = data;
             closeLoading();
             loadPage();
     }, error);

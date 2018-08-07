@@ -27,7 +27,7 @@ angular.module('com.common')
         }).then(
             function (result) {
                 if(resOk(result)){
-                    deferred.resolve(result.data);
+                    deferred.resolve(result.data.data);
                 }else{
                     deferred.reject(result);
                 }
@@ -60,7 +60,7 @@ angular.module('com.common')
         }).then(
             function (result) {
                 if(resOk(result)){
-                    deferred.resolve(result.data);
+                    deferred.resolve(result.data.data);
                 }else{
                     deferred.reject(result);
                 }

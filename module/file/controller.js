@@ -92,7 +92,7 @@ angular.module('com.file')
         params["PATH"] = id;
         fileService.del(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.list();
             }, error);
 
@@ -117,7 +117,7 @@ angular.module('com.file')
         var params =  $scope.httpget;
         fileService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
         }, error);
     };
@@ -140,7 +140,7 @@ angular.module('com.file')
         var params = $scope.httpget;
         fileService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
             }, error);
 
@@ -168,11 +168,11 @@ angular.module('com.file')
         //debugger;
         var PAGE = $scope.PAGE;
         var search = $scope.search;
-        params = $.extend({}, PAGE, search);
+        var params = $.extend({}, PAGE, search);
         fileService.list(params).then(
             function (data) {
-                $scope.httplist = data.LIST;
-                $scope.PAGE = data.PAGE;
+                $scope.httplist = data.list;
+                $scope.PAGE = data.page;
                 $scope.ppp = calcPage($scope.PAGE);
         }, error);
     };
@@ -182,7 +182,7 @@ angular.module('com.file')
         var params = {"id":id};
         fileService.del(params).then(
             function (data) { 
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.list(); 
         }, error);  
 

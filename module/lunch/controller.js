@@ -53,7 +53,7 @@ angular.module('com.lunch')
         var params =  $scope.httpget;
         lunchService.add(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
         }, error); 
     };
@@ -77,7 +77,7 @@ angular.module('com.lunch')
         var params = $scope.httpget;
         lunchService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome(); 
             }, error);  
 
@@ -110,11 +110,11 @@ angular.module('com.lunch')
         $scope.list = function(){ 
             var PAGE = $scope.PAGE;
             var search = $scope.search;
-            params = $.extend({}, PAGE, search); 
+            var params = $.extend({}, PAGE, search);
             lunchService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.LIST;
-                    $scope.PAGE = data.PAGE;
+                    $scope.httplist = data.list;
+                    $scope.PAGE = data.page;
                     $scope.ppp = calcPage($scope.PAGE);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);
@@ -133,7 +133,7 @@ angular.module('com.lunch')
             params[$rootScope.cols[0]] = id;
             lunchService.del(params).then(
                 function (data) { 
-                    info("操作数据:" + data.res + "条");
+                    info("操作数据:" + data + "条");
                     $scope.list(); 
             }, error);  
 

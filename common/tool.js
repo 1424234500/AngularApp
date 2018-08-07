@@ -27,7 +27,7 @@ function isNotNull(obj){
 }
 
 function resOk(result){
-    return result ? true:false;
+    return result && result.data && result.data.flag ? true:false;
 }
 function openUrl(url){
     window.open(encodeURI(url));

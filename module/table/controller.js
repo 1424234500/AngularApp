@@ -6,8 +6,8 @@ angular.module('com.table')
     var mName = 'table';
     $scope.mName = mName;
 
-    $scope.table = $stateParams.id;
-    tableService.setTable($scope.table);
+    //$scope.table = $stateParams.id;
+    //tableService.setTable($scope.table);
 
   
     $scope.goHome = function(){ 
@@ -62,7 +62,7 @@ angular.module('com.table')
         var params =  $scope.httpget;
         tableService.add(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
         }, error); 
     };
@@ -86,7 +86,7 @@ angular.module('com.table')
         var params = $scope.httpget;
         tableService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome(); 
             }, error);  
 
@@ -118,11 +118,11 @@ angular.module('com.table')
         $scope.list = function(){ 
             var PAGE = $scope.PAGE;
             var search = $scope.search;
-            params = $.extend({}, PAGE, search); 
+            var params = $.extend({}, PAGE, search);
             tableService.list(params).then(
                 function (data) {
-                    $scope.httplist = data.LIST;
-                    $scope.PAGE = data.PAGE; 
+                    $scope.httplist = data.list;
+                    $scope.PAGE = data.page;
                     $scope.ppp = calcPage($scope.PAGE);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);
@@ -140,7 +140,7 @@ angular.module('com.table')
             params[$rootScope.cols[0]] = id;
             tableService.del(params).then(
                 function (data) { 
-                    info("操作数据:" + data.res + "条");
+                    info("操作数据:" + data + "条");
                     $scope.list(); 
             }, error);  
 

@@ -52,7 +52,7 @@ angular.module('com.student')
         var params =  $scope.httpget;
         studentService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome();
         }, error); 
     };
@@ -75,7 +75,7 @@ angular.module('com.student')
         var params = $scope.httpget;
         studentService.update(params).then(
             function (data) {
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.goHome(); 
             }, error);  
 
@@ -103,11 +103,11 @@ angular.module('com.student')
         //debugger;
         var PAGE = $scope.PAGE;
         var search = $scope.search;
-        params = $.extend({}, PAGE, search); 
+        var params = $.extend({}, PAGE, search);
         studentService.list(params).then(
             function (data) {
                 $scope.httplist = data.LIST;
-                $scope.PAGE = data.PAGE; 
+                $scope.PAGE = data.page;
                 $scope.ppp = calcPage($scope.PAGE);
         }, error);  
 
@@ -118,7 +118,7 @@ angular.module('com.student')
         var params = {"ID":id};
         studentService.del(params).then(
             function (data) { 
-                info("操作数据:" + data.res + "条");
+                info("操作数据:" + data + "条");
                 $scope.list(); 
         }, error);  
 
