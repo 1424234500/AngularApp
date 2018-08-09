@@ -3,6 +3,13 @@
     AppCtrl
     AppModule
     配置root路由
+
+
+
+    新增模块
+    1.复制文件夹
+    2.配置launch.js子模块
+    3.配置index.html导入js
 */
  
 var easyuiTheme = "metro-blue";//指定如果用户未选择样式，那么初始化一个默认样式 
@@ -14,12 +21,14 @@ var subModules = [ // 需要加载的子模块集合
     //自定义模块
     'com.common', 
     'com.login',
-    'com.tomcat', 
+    'com.tomcat',
+    'com.cache',
+
     'com.student', 
     'com.main',
     'com.file',
     'com.table', 
-    'com.lunch', 
+    'com.lunch',
     'com.dinner',
 
 
