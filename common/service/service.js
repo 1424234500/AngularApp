@@ -4,10 +4,13 @@
 *
 */
 angular.module('com.common')
-.service('baseService',['$http', '$q', 'Socket', function($http, $q, Socket){
+.service('baseService',['$http', '$q', 'Socket', 'tools', function($http, $q, Socket, tools){
     this.name = 'this.name';  
 
+
     this.post = function(url, params){
+        tools.openLoad(3000);
+
         url = url ? url : ' undefined !!!! ';
         params = params ? params : {};
         info("post.url:" + url + ":" + JSON.stringify(params));
@@ -26,14 +29,30 @@ angular.module('com.common')
             }
         }).then(
             function (result) {
-                if(resOk(result)){
-                    deferred.resolve(result.data.data);
-                }else{
+                var type = "normal error warning";
+                var info = "";
+                if(result && result.data){ //网络访问正常
+                    var data = result.data;
+                    if(data.flag){ //操作一切正常
+                        type = "normal";
+                        deferred.resolve(data.data);
+                    }else{ //操作数据异常
+                        type = "warning";
+                        deferred.reject(data.data);
+                    }
+                    info = data.info + " cost:" + data.time + "ms";
+                }else{ //网络异常
+                    info = "访问异常 code:" + result.status + " text:" + result.statusText;
+                    type = "error";
                     deferred.reject(result);
                 }
+                tools.closeLoad();
+                tools.tip(info, type);
             },
             function (error) {
-                deferred.reject(error);   
+                deferred.reject(error);
+                tools.closeLoad();
+                tools.tip("网络异常" + JSON.stringify(error), "error");
             }
         );
         return deferred.promise;   
@@ -59,14 +78,32 @@ angular.module('com.common')
             }
         }).then(
             function (result) {
-                if(resOk(result)){
-                    deferred.resolve(result.data.data);
-                }else{
+                tools.openLoad(3000);
+
+                var type = "normal error warning";
+                var info = "";
+                if(result && result.data){ //网络访问正常
+                    var data = result.data;
+                    if(data.flag){ //操作一切正常
+                        type = "normal";
+                        deferred.resolve(data.data);
+                    }else{ //操作数据异常
+                        type = "warning";
+                        deferred.reject(data.data);
+                    }
+                    info = data.info + " cost:" + data.time + "ms";
+                }else{ //网络异常
+                    info = "访问异常 code:" + result.status + " text:" + result.statusText;
+                    type = "error";
                     deferred.reject(result);
                 }
+                tools.closeLoad();
+                tools.tip(info, type);
             },
             function (error) {
-                deferred.reject(error);   
+                deferred.reject(error);
+                tools.closeLoad();
+                tools.tip("网络异常" + JSON.stringify(error), "error");
             }
         );
         return deferred.promise;   

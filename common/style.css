@@ -40,7 +40,6 @@ input {
 
 
 .panel{
-
     padding-bottom: 1px;
 }
 .echart-small{
@@ -76,7 +75,82 @@ input {
     width:80px;
 }
 
+.hand{
+}
+.hand:hover{
+    cursor: row-resize;
+
+}
+/*高亮背景 */
+.colorLevel{
+    background-color: #F1F8FF;
+}
+.colorLevel0{
+    background-color: #fff6f2;
+}
+.colorLevel1{
+    background-color: #ddfff8;
+}
+.colorLevel2{
+    background-color: #afc1ff;
+}
+.colorLevel3{
+    background-color: #e3bcff;
+}
+.colorLevel4{
+    background-color: #f0a9ff;
+}
+.colorGitHeader{
+    background-color: #F1F8FF;
+}
+.colorChromeTitle{
+    background-color: #F6F6F6;
+}
 
 
 
+
+
+
+
+
+/**
+* 提示框
+*/
+.top-tips {
+    top: 0;
+    position: fixed;
+    color: white;
+    height: 35px;
+    line-height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    font-weight: 100;
+}
+.top-tips.normal {
+    background-color: #44b549;
+}
+
+.top-tips.error {
+    background-color: red;
+}
+.top-tips.warning {
+    background-color: #eaa024;
+}
+
+
+/**
+* 加载框
+*/
+.load-progress {
+    top: 0;
+    position: fixed;
+    background: #fe2d0d;
+    height: 12px;
+    left: 0;
+    width: 0%;
+}
 

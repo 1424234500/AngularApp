@@ -18,7 +18,88 @@ angular.module('com.common')
         }
     }
 }])
+.directive('topTips', ['$timeout', function ($timeout) {
+    var showTime = 800;    // 提示显示时间
+    var topTips = {
+        link: function postLink(scope, element, attrs) {
+            var html = '<div class="top-tips ng-hide notice" style="z-index: 9999"><span class="center-block text-center" id="title"></span></div>';
+            var tipsDom = angular.element(html);
+            angular.element(element).append(tipsDom);
+            var infos = [], isShowing = false;
 
+            function showTips() {
+                isShowing = true;
+                var info = infos.pop();
+                tipsDom.removeClass('normal error warning');
+                tipsDom.addClass(info['type']);
+                angular.element(tipsDom[0].querySelector('#title')).text(info['text']);
+                tipsDom.removeClass('ng-hide');
+                $timeout(function () {
+                    isShowing = false;
+                    tipsDom.addClass('ng-hide');
+                    if (infos.length > 0) {
+                        showTips();
+                    }
+                }, showTime);
+            }
+            scope.$on('$$showTopTips', function (event, info) {
+                infos.push(info);
+                if (!isShowing) {
+                    showTips();
+                }
+            });
+        }
+    };
+    return topTips;
+}])
+.directive('loadProgress', ['$timeout', function ($timeout) {
+    var showTime = 1500;    // 提示显示时间
+    var topTips = {
+        link: function postLink(scope, element, attrs) {
+            var html = '<div class="load-progress ng-hide notice" style="z-index: 99998"><span class="center-block text-center" id="title"></span></div>';
+            var tipsDom = angular.element(html);
+            angular.element(element).append(tipsDom);
+            var isShowing = false;
+            var pro = 0;
+            function hideTips(){
+                pro = 100;
+                $timeout(function(){
+                    isShowing = false;
+                    tipsDom.addClass('ng-hide');
+                    pro = 0;
+                    angular.element(tipsDom).css("width", pro + "%");
+                }, 100);
+            }
+            function updatePro(){
+                $timeout(function () {
+                    pro = pro + 1;//100 * 20 = 2000
+                    angular.element(tipsDom).css("width", pro + "%");
+                    if(pro >= 100){
+                        hideTips();
+                    }else{
+                        updatePro();
+                    }
+                }, 20);
+            }
+            function showTips(time) {
+                isShowing = true;
+                tipsDom.removeClass('normal error warning');
+                tipsDom.addClass('error');
+                angular.element(tipsDom[0].querySelector('#title')).text("");
+                tipsDom.removeClass('ng-hide');
+                updatePro();
+            }
+            scope.$on('$$openLoad', function (event, time) {
+                showTips(time);
+            });
+            scope.$on('$$closeLoad', function (event) {
+                //hideTips();
+                pro = 100;
+            });
+        }
+    };
+    return topTips;
+}])
 .directive('previewDirective', ['$document','$window', function ($document,$window) {
     return {
         restrict: "EA",

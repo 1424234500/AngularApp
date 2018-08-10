@@ -57,7 +57,7 @@ angular.module('com.common')
         for(var i = 0; i < list.length; i++){
             var flag = true;
             for(var key in search){
-                if(search[key] && list[i][key] && list[i][key].indexOf(search[key]) < 0 ){//都不为null 且不包含 则一票否决
+                if(search[key] && list[i][key] && (""+list[i][key]).indexOf(search[key]) < 0 ){//都不为null 且不包含 则一票否决
                     flag = false;
                     break;
                 } 
