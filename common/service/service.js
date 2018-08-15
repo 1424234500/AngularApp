@@ -4,10 +4,13 @@
 *
 */
 angular.module('com.common')
-.service('baseService',['$http', '$q', 'Socket', 'tools', function($http, $q, Socket, tools){
+.service('baseService',['$http', '$q', 'Socket', 'cacheService', 'tools',
+    function($http, $q, Socket, cacheService, tools){
     this.name = 'this.name';  
 
-
+    this.cache = function(url, params, time){
+        return cacheService.post(url, params, time);
+    };
     this.post = function(url, params){
         tools.openLoad(3000);
 
