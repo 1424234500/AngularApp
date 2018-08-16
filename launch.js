@@ -16,13 +16,16 @@ var easyuiTheme = "metro-blue";//指定如果用户未选择样式，那么初�
 
 var subModules = [ // 需要加载的子模块集合
     //系统模块
-    'ui.router',  
-    
+    'ui.router',
+
+    //'jQueryScrollbar', //滚动插件
+
     //自定义模块
     'com.common', 
     'com.login',
     'com.tomcat',
     'com.cache',
+    'com.class',
 
     'com.student', 
     'com.main',

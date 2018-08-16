@@ -32,6 +32,7 @@ angular.module('com.common')
                 var info = infos.pop();
                 tipsDom.removeClass('normal error warning');
                 tipsDom.addClass(info['type']);
+                showTime = info['type']=='normal'?400:(info['type']=='warning'?1200:2000);
                 angular.element(tipsDom[0].querySelector('#title')).text(info['text']);
                 tipsDom.removeClass('ng-hide');
                 $timeout(function () {

@@ -21,8 +21,19 @@ angular.module('com.main')
     info($state.current.name);
 
 
+    $scope.itemList = [];
+    $scope.itemList.push({"route":"main.tomcat", "name":"Tomcat"});
+    $scope.itemList.push({"route":"main.cache", "name":"Cache"});
+    $scope.itemList.push({"route":"main.file.list", "name":"File"});
+    $scope.itemList.push({"route":"main.class", "name":"Class"});
 
+    $scope.itemList.push({"route":"main.table", "name":"Table"});
+    $scope.itemList.push({"route":"main.student", "name":"Student"});
+    $scope.itemList.push({"route":"main.lunch.list", "name":"Lunch"});
+    $scope.itemList.push({"route":"main.dinner.list", "name":"Dinner"});
+    $scope.itemList.push({"route":"main.system", "name":"RaspberryPi"});
 
+    $scope.goHome();
 }]) 
 .controller('com.main.homeCtrl', ['$scope', '$rootScope', '$state', 'studentService', function ($scope, $rootScope, $state, studentService) {
  
@@ -32,6 +43,9 @@ angular.module('com.main')
             info(data)
            // debugger;
             $scope.httplist = data; 
-    });   
+    });
+
+
+
 
 }]) 

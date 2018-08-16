@@ -2,7 +2,7 @@
 angular.module('com.tomcat')
 .controller('com.tomcat.indexCtrl', ['$scope', '$rootScope', '$state', 'tomcatService', function ($scope, $rootScope, $state, tomcatService) {
     //该index.html包含两个容器ui-view
-    //跳转到下一个路由 state view会包含两个url 和 contrl
+    //跳转到下一个路由 state view会包含两个url 和 control
     $state.go('main.tomcat.index');
  
 }])

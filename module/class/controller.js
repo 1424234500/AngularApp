@@ -1,9 +1,9 @@
  
-angular.module('com.cache')
+angular.module('com.class')
 
-.controller('com.cache.pageCtrl', ['$PROJECT','$scope', '$rootScope', '$state', 'baseService','tools', function ($PROJECT, $scope, $rootScope, $state, baseService, tools) {
+.controller('com.class.pageCtrl', ['$PROJECT','$scope', '$rootScope', '$state', 'baseService','tools', function ($PROJECT, $scope, $rootScope, $state, baseService, tools) {
     //嵌套路由 scope可访问 <任意module> 的上层html的 ctrl/scope
-    var mName = 'cache';
+    var mName = 'class';
     $scope.mName = mName;
     $scope.search = {}; //查询
     $scope.orderType = 'TYPE'; //排序
@@ -22,27 +22,26 @@ angular.module('com.cache')
         }
     };
 
-    $scope.cols = ["URL", "KEY", "VALUE", "EXPIRE", "TYPE"]; //搜索<添加/修改>列
-    $scope.showCols = ["KEY", "VALUE", "HASHCODE", "EXPIRE", "COUNT", "TYPE"]; //展示列
+    $scope.cols = ["PACKAGE"]; //搜索<添加/修改>列
+    $scope.showCols = [ "SIZE","PACKAGE",]; //展示列
+    //$scope.showCols2 = ["RETURNTYPE", "NAME", "PARAMETERTYPES", "DEFAULTVALUE", "TOSTRING"]; //展示列
+    $scope.showCols2 = [ "TOSTRING"]; //展示列
     $scope.page = {"NOWPAGE":1, "SHOWNUM":50, "ORDER":"","DESC":""}; //分页参数
 
-    //long NUM = 0;	//总数据条数
-    //int SHOWNUM = defaultEachPageNum;//每页数量
-    //int NOWPAGE = 1;	//当前页码
-    //int PAGENUM = 0;	//总页数
-    //String ORDER;	//排序
-    //String DESC;	//倒序
+    //bean.put("NAME", item.getName()); //aaa
+    //bean.put("RETURNTYPE", item.getReturnType());//int
+    //bean.put("DEFAULTVALUE", item.getDefaultValue());
+    //bean.put("PARAMETERTYPES", Arrays.toString(item.getParameterTypes()));
+    //bean.put("TOSTRING", item.toString());
     //查询列表
     $scope.list = function(){
         var PAGE = $scope.page;
         var search = $scope.search;
         var params = $.extend({}, PAGE, search);
-        var url = '/' + $PROJECT + '/tomcat/listCacheMap.do';
+        var url = '/' + $PROJECT + '/class/list.do';
         baseService.post(url, params).then(
             function (data) {
-                $scope.listCache = data.list;
-                $scope.search.URL = data.urls;
-                $scope.oftype = data.oftype;
+                $scope.listItem = data.list;
                 $scope.page = data.page;
                 $scope.pages = calcPage($scope.page); //计算序列
             }, error);
@@ -59,7 +58,7 @@ angular.module('com.cache')
     };
     //清空查询条件
     $scope.clear = function(){
-        $scope.search = {};//保留字段
+        $scope.search = {"URL":$scope.search["URL"]};//保留字段
     };
     //上级目录
     $scope.back = function(){
@@ -82,15 +81,16 @@ angular.module('com.cache')
     $scope.oftype = 0;
     //点中一行数据
     $scope.detail = function(item){
-        if(item["TYPE"] == "0") return; //基本元素无子集 不可点击
+        //if(item["TYPE"] == "0") return; //基本元素无子集 不可点击
+        $scope.now = item["PACKAGE"];
 
-        var lastUrl = $scope.search["URL"] || "";
-        if($scope.oftype == "2" || lastUrl == ""){ //list -> [01]
-            $scope.search["URL"] = lastUrl + "" + item["KEY"];
-        }else{ //map
-            $scope.search["URL"] = lastUrl + "." + item["KEY"];
-        }
-        $scope.list();
+        var params = {};
+        params["PACKAGE"] = item["PACKAGE"];
+        var url = '/' + $PROJECT + '/class/detail.do';
+        baseService.post(url, params).then(
+            function (data) {
+                $scope.listMethod = data.list;
+            });
     };
     //删除一行数据
     $scope.delete = function(item, event){

@@ -12,7 +12,25 @@
 </div>  
 
 <div class="panel-body">
-    <table class="table table-hover"> 
+    <table class="table table-hover">
+
+        <thead>
+        <tr class="colorChromeTitle">
+            <th> No. </th>
+            <th class="hand" ng-repeat="item in showCols track by $index" ng-click="changeOrder(item)" ng-class="{dropup:order === ''}">
+                {{item}}
+                <span ng-show="orderType==item" ng-class="{orderColor:orderType === item}" class="caret"></span>
+            </th>
+
+
+            </th>
+            <th> DOWN </th>
+            <th> UPDATE </th>
+            <th> DELETE </th>
+        </tr>
+        </thead>
+
+        <!--
         <thead>
                     <tr>  
                         <th> No. </th>
@@ -54,7 +72,7 @@
                         <th> UPDATE </th>
                         <th> DELETE </th>
                     </tr> 
-        </thead>
+        </thead>-->
 
         <tbody> 
 <tr ng-repeat="item in httplist | filter:search | orderBy:order + orderType"    >   

@@ -27,7 +27,6 @@ angular.module('com.tomcat', [])
             controller: 'com.tomcat.indexCtrl'
         }) 
         
-        ;
 
 }]);
 

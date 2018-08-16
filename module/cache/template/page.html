@@ -58,7 +58,7 @@
 
                 <th class="hand" ng-click="changeOrder('MTIME')" ng-class="{dropup:order === ''}">
                     {{"MTIME"}}
-                    <span ng-show="orderType=='MTIME'" ng-class="{orderColor:orderType === item}" class="caret"></span>
+                    <span ng-show="orderType=='MTIME'" ng-class="{orderColor:orderType === 'MTIME'}" class="caret"></span>
                 </th>
                 <th> UPDATE </th>
                 <th> DELETE </th>
@@ -90,7 +90,8 @@
                 </tr>
             </tbody>
         </table>
-
+        <!--table foot ppp-->
+        <ng-include  src="'common/template/list_table_foot.html'"></ng-include>
     </div>
 
 

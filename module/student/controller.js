@@ -106,9 +106,9 @@ angular.module('com.student')
         var params = $.extend({}, PAGE, search);
         studentService.list(params).then(
             function (data) {
-                $scope.httplist = data.LIST;
-                $scope.PAGE = data.page;
-                $scope.ppp = calcPage($scope.PAGE);
+                $scope.httplist = data.list;
+                $scope.page = data.page;
+                $scope.ppp = calcPage($scope.page);
         }, error);  
 
     };

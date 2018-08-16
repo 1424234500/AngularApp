@@ -17,12 +17,12 @@ input {
 
 
 .page-true{
-    background-color: #FFFFF0;
+    background-color: #d23bff;
     border:none;
 }
 
 .page-false{
-    background-color: #FFFF00;
+    background-color: #DDDDDD;
     border:none; 
 }
 .page{

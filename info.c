@@ -8,5 +8,6 @@
 3.修改以上js文件中的 模块名字     com.mmm   com.mmm.pageCtrl(多个)     mmmService(1个)          随意
 4.index.html 中添加以上文件的引用 except htmls
 5.launch.js 中添加模块 com.mmm
+6.配置导航 main/controller
 
 //注意！ js不能有语法错误!!

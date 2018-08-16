@@ -94,8 +94,8 @@ angular.module('com.lunch')
 
     //加载页面
     var loadPage = function(){
-        $scope.PAGE = {};
-        $scope.PAGE.SHOWNUM = 31;
+        $scope.page = {};
+        $scope.page.SHOWNUM = 31;
         $scope.search = {}; //查询
         $scope.orderType = $rootScope.cols[0];
         $scope.order = '-';
@@ -108,14 +108,14 @@ angular.module('com.lunch')
             }
         };
         $scope.list = function(){ 
-            var PAGE = $scope.PAGE;
+            var PAGE = $scope.page;
             var search = $scope.search;
             var params = $.extend({}, PAGE, search);
             lunchService.list(params).then(
                 function (data) {
                     $scope.httplist = data.list;
-                    $scope.PAGE = data.page;
-                    $scope.ppp = calcPage($scope.PAGE);
+                    $scope.page = data.page;
+                    $scope.pages = calcPage($scope.page);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);
 
