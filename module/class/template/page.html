@@ -42,7 +42,7 @@
         <!--&gt;-->
 
         <input type="text" ng-model="search.PACKAGE" class="form-control" style="width:40%;" ng-keydown="keydown($event)" placeholder="PACKAGE">
-        <!--<input type="text" ng-model="search.NAME" class="form-control" placeholder="name" ng-keydown="keydown($event)">-->
+        <input type="text" ng-model="ARGS" class="form-control" placeholder="ARGS" >
 
         <button class="btn" ng-click="list()" >查询</button>
         <button class="btn" ng-click="clear()" >清空</button>
@@ -73,7 +73,7 @@
                         <td colspan="{{showCols.length + 1}}">上级目录</td>
                     </tr>-->
                         <!-- filter:search  | mapSearch:search  -->
-                        <tr ng-class="{'colorLevel2':item['PACKAGE']==now,'colorLevel1':item['TYPE']==1,}"
+                        <tr ng-class="{'colorLevel4':item['PACKAGE']==now,'colorLevel1':item['TYPE']==1,}"
                             ng-repeat="item in listItem | mapSearch:search|orderBy:order + orderType"
                             ng-click="detail(item)"
                         >
@@ -106,7 +106,7 @@
 
                 <tbody>
                 <!-- filter:search  | mapSearch:search  -->
-                <tr ng-class="{'colorLevel2':item['TYPE']==2,'colorLevel1':item['TYPE']==1,}"
+                <tr ng-class="{'colorLevel4':item['NAME']==nowMethod,'colorLevel3':(item['BASE']=='base'&&item['TYPE']=='method'),'colorLevel2':(item['BASE']=='base'&&item['TYPE']!='method'),'colorLevel1':(item['BASE']!='base'&&item['TYPE']=='method'),}"
                     ng-repeat="item in listMethod |orderBy:order + orderType"
                 >
                     <!--<td class="colorChromeTitle">{{$index + 1}}</td>-->

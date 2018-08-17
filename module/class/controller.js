@@ -92,6 +92,19 @@ angular.module('com.class')
                 $scope.listMethod = data.list;
             });
     };
+    $scope.doClass = function(item){
+        //if(item["TYPE"] == "0") return; //基本元素无子集 不可点击
+        $scope.nowMethod = item["NAME"];
+
+        var params = {};
+        params["CLASS"] =  $scope.now;
+        params["METHOD"] = item["NAME"];
+        var url = '/' + $PROJECT + '/class/do.do';
+        baseService.post(url, params).then(
+            function (data) {
+                $scope.listMethod = data.list;
+            });
+    };
     //删除一行数据
     $scope.delete = function(item, event){
         event.stopPropagation(); //阻止向上传递
