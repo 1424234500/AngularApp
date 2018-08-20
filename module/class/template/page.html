@@ -34,19 +34,19 @@
 
 
     <div class="navbar-form navbar-left" style="width:100%;">
-        <!--<input  style="width:16%; margin-right: 5px;" class="form-control"-->
-                <!--ng-repeat="item in cols track by $index"-->
-                <!--ng-model="search[item]"-->
-                <!--ng-keydown="keydown($event);"-->
-                <!--placeholder="{{item}}"-->
-        <!--&gt;-->
 
-        <input type="text" ng-model="search.PACKAGE" class="form-control" style="width:40%;" ng-keydown="keydown($event)" placeholder="PACKAGE">
-        <input type="text" ng-model="ARGS" class="form-control" placeholder="ARGS" >
+
+        <input type="text" ng-model="search.PACKAGE" class="form-control" style="width:20%;" ng-keydown="keydown($event)" placeholder="PACKAGE">
+
+        <input  style="width:12%; margin-right: 5px;" class="form-control"
+        ng-repeat="item in nowMethod.PARAMETERTYPES track by $index"
+        ng-model="args[$index]"
+        placeholder="{{item}}"
+        >
 
         <button class="btn" ng-click="list()" >查询</button>
         <button class="btn" ng-click="clear()" >清空</button>
-        <!--<button class="btn" ng-click="add()" >添加</button>-->
+        <button class="btn" ng-click="doClass()" >执行</button>
     </div>
     <div class="clear"/>
 
@@ -73,7 +73,7 @@
                         <td colspan="{{showCols.length + 1}}">上级目录</td>
                     </tr>-->
                         <!-- filter:search  | mapSearch:search  -->
-                        <tr ng-class="{'colorLevel4':item['PACKAGE']==now,'colorLevel1':item['TYPE']==1,}"
+                        <tr ng-class="{'colorLevel4':item['PACKAGE']==now['PACKAGE'],'colorLevel1':item['TYPE']==1,}"
                             ng-repeat="item in listItem | mapSearch:search|orderBy:order + orderType"
                             ng-click="detail(item)"
                         >
@@ -106,8 +106,10 @@
 
                 <tbody>
                 <!-- filter:search  | mapSearch:search  -->
-                <tr ng-class="{'colorLevel4':item['NAME']==nowMethod,'colorLevel3':(item['BASE']=='base'&&item['TYPE']=='method'),'colorLevel2':(item['BASE']=='base'&&item['TYPE']!='method'),'colorLevel1':(item['BASE']!='base'&&item['TYPE']=='method'),}"
+                <tr ng-class="{'colorLevel4':item['NAME']==nowMethod['NAME'],'colorLevel3':(item['BASE']=='base'&&item['TYPE']=='method'),'colorLevel2':(item['BASE']=='base'&&item['TYPE']!='method'),'colorLevel1':(item['BASE']!='base'&&item['TYPE']=='method'),}"
                     ng-repeat="item in listMethod |orderBy:order + orderType"
+                    ng-click="detail2(item)"
+
                 >
                     <!--<td class="colorChromeTitle">{{$index + 1}}</td>-->
                     <td ng-class="{colorChromeTitle:orderType === name}" style="max-width: 30%;"

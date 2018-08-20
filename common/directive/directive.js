@@ -31,7 +31,10 @@ angular.module('com.common')
                 isShowing = true;
                 var info = infos.pop();
                 tipsDom.removeClass('normal error warning');
-                tipsDom.addClass(info['type']);
+                var ttt = "normal";
+                if(info['type'] == 'normal' || info['type'] == 'error' || info['type'] == 'warning')
+                    ttt = info['type'];
+                tipsDom.addClass(ttt);
                 showTime = info['type']=='normal'?400:(info['type']=='warning'?1200:2000);
                 angular.element(tipsDom[0].querySelector('#title')).text(info['text']);
                 tipsDom.removeClass('ng-hide');

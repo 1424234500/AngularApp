@@ -21,7 +21,7 @@ angular.module('com.class')
             $scope.list();
         }
     };
-
+    $scope.args = {};
     $scope.cols = ["PACKAGE"]; //搜索<添加/修改>列
     $scope.showCols = [ "SIZE","PACKAGE",]; //展示列
     //$scope.showCols2 = ["RETURNTYPE", "NAME", "PARAMETERTYPES", "DEFAULTVALUE", "TOSTRING"]; //展示列
@@ -82,8 +82,8 @@ angular.module('com.class')
     //点中一行数据
     $scope.detail = function(item){
         //if(item["TYPE"] == "0") return; //基本元素无子集 不可点击
-        $scope.now = item["PACKAGE"];
-
+        $scope.now = item;
+        $scope.nowMethod = "";
         var params = {};
         params["PACKAGE"] = item["PACKAGE"];
         var url = '/' + $PROJECT + '/class/detail.do';
@@ -92,17 +92,26 @@ angular.module('com.class')
                 $scope.listMethod = data.list;
             });
     };
-    $scope.doClass = function(item){
-        //if(item["TYPE"] == "0") return; //基本元素无子集 不可点击
-        $scope.nowMethod = item["NAME"];
 
+    $scope.detail2 = function(item){
+        if(item["TYPE"] == "field") return; //变量
+        $scope.nowMethod = item;
+        $scope.args = [];
+        for(var i = 0; i < $scope.nowMethod.PARAMETERTYPES.length; i++){
+            $scope.args.push("");
+        }
+    };
+    $scope.doClass = function(){
+        if(!$scope.nowMethod || !$scope.nowMethod.NAME) return;
         var params = {};
-        params["CLASS"] =  $scope.now;
-        params["METHOD"] = item["NAME"];
+        params["do_class"] =  $scope.now.PACKAGE;
+        params["do_method"] = $scope.nowMethod.NAME;
+        params["do_args"] = $scope.args;
+
         var url = '/' + $PROJECT + '/class/do.do';
         baseService.post(url, params).then(
             function (data) {
-                $scope.listMethod = data.list;
+                tools.tip(JSON.stringify(data), "warning");
             });
     };
     //删除一行数据
