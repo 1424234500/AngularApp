@@ -23,7 +23,7 @@ angular.module('com.class')
     };
     $scope.args = {};
     $scope.cols = ["PACKAGE"]; //搜索<添加/修改>列
-    $scope.showCols = [ "SIZE","PACKAGE",]; //展示列
+    $scope.showCols = ["PACKAGE",]; //展示列 "SIZE"
     //$scope.showCols2 = ["RETURNTYPE", "NAME", "PARAMETERTYPES", "DEFAULTVALUE", "TOSTRING"]; //展示列
     $scope.showCols2 = [ "TOSTRING"]; //展示列
     $scope.page = {"NOWPAGE":1, "SHOWNUM":50, "ORDER":"","DESC":""}; //分页参数

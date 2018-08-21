@@ -42,7 +42,7 @@ angular.module('com.common')
                     }
                     info = data.info + " cost:" + data.time + "ms";
                 }else{ //网络异常
-                    info = "访问异常 code:" + result.status + " text:" + result.statusText;
+                    info = "异常 " + result.status + " " + result.statusText;
                     type = "error";
                     deferred.reject(result);
                 }
@@ -52,7 +52,8 @@ angular.module('com.common')
             function (error) {
                 deferred.reject(error);
                 tools.closeLoad();
-                tools.tip("网络异常" + JSON.stringify(error), "error");
+                var str = "" + error["status"] + " " + error["statusText"];
+                tools.tip("错误 " + str, "error");
             }
         );
         return deferred.promise;   
@@ -93,7 +94,7 @@ angular.module('com.common')
                     }
                     info = data.info + " cost:" + data.time + "ms";
                 }else{ //网络异常
-                    info = "访问异常 code:" + result.status + " text:" + result.statusText;
+                    info = "异常" + result.status + " " + result.statusText;
                     type = "error";
                     deferred.reject(result);
                 }
@@ -103,7 +104,8 @@ angular.module('com.common')
             function (error) {
                 deferred.reject(error);
                 tools.closeLoad();
-                tools.tip("网络异常" + JSON.stringify(error), "error");
+                var str = "" + error["status"] + " " + error["statusText"];
+                tools.tip("错误 " + str, "error");
             }
         );
         return deferred.promise;   
