@@ -97,9 +97,10 @@ angular.module('com.class')
         if(item["TYPE"] == "field") return; //变量
         $scope.nowMethod = item;
         $scope.args = [];
-        for(var i = 0; i < $scope.nowMethod.PARAMETERTYPES.length; i++){
-            $scope.args.push("");
-        }
+        if($scope.nowMethod.PARAMETERTYPES != "")
+            for(var i = 0; i < $scope.nowMethod.PARAMETERTYPES.length; i++){
+                $scope.args.push("");
+            }
     };
     $scope.doClass = function(){
         if(!$scope.nowMethod || !$scope.nowMethod.NAME) return;
