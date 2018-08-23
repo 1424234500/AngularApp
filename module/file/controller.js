@@ -201,9 +201,9 @@ angular.module('com.file')
     };
     $scope.list = function(){
         //debugger;
-        var PAGE = $scope.page;
+        var page = $scope.page;
         var search = $scope.search;
-        var params = $.extend({}, PAGE, search);
+        var params = $.extend({}, page, search);
         fileService.list(params).then(
             function (data) {
                 $scope.httplist = data.list;

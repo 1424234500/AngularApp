@@ -103,7 +103,7 @@ angular.module('com.table')
 
     //加载页面
     var loadPage = function(){
-        $scope.PAGE = {};
+        $scope.page = {};
         $scope.search = {}; //查询
         $scope.orderType = $rootScope.cols[0];
         $scope.order = '-';
@@ -116,14 +116,14 @@ angular.module('com.table')
             }
         };
         $scope.list = function(){ 
-            var PAGE = $scope.PAGE;
+            var PAGE = $scope.page;
             var search = $scope.search;
             var params = $.extend({}, PAGE, search);
             tableService.list(params).then(
                 function (data) {
                     $scope.httplist = data.list;
-                    $scope.PAGE = data.page;
-                    $scope.ppp = calcPage($scope.PAGE);
+                    $scope.page = data.page;
+                    $scope.ppp = calcPage($scope.page);
 
                     $scope.sums =  listSums($scope.httplist, $rootScope.cols);
 
