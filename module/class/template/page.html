@@ -10,10 +10,10 @@
 
     <ul class="nav nav-tabs">
         <li class="">
-            <a ng-click="goHome()" href="javascript:;">列表</a>
+            <a ng-click="list()" href="javascript:;">列表</a>
         </li>
         <li class="">
-                <a ng-click="goAdd()" href="javascript:;">管理</a>
+                <a ng-click="show()" href="javascript:;">代码嵌入</a>
         </li>
         <li class="dropdown pull-right">
              <a href="#" data-toggle="dropdown" class="dropdown-toggle">更多<strong class="caret"></strong></a>
@@ -47,7 +47,7 @@
 
         <button class="btn" ng-click="list()" >查询</button>
         <button class="btn" ng-click="clear()" >清空</button>
-        <button class="btn" ng-click="doClass()" >执行</button>
+        <button class="btn" ng-click="doClass()" >调用选中函数</button>
     </div>
     <div class="clear"/>
 
@@ -96,6 +96,13 @@
             <!--<ng-include  src="'common/template/list_table_foot.html'"></ng-include>-->
         </div>
         <div  style="width:65%;border:solid #f0ad4e 2px;float:right;">
+
+            <div ng-show="showCode">
+                <textarea style="height:100px;width:100%" ng-model="code"></textarea>
+                <button class="btn" ng-click="doCode()" >执行代码段</button>
+                <textarea style="height:60px;width:100%" ng-model="codeRes"></textarea>
+            </div>
+
             <table class="table table-hover">
                 <thead>
                 <tr class="colorChromeTitle">
@@ -128,4 +135,4 @@
 
 </div>
 
-
+            </div></div></div>

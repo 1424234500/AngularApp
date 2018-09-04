@@ -113,6 +113,7 @@ angular.module('com.class')
         baseService.post(url, params).then(
             function (data) {
                 tools.tip(JSON.stringify(data), "warning");
+                $scope.codeRes = JSON.stringify(data);
             });
     };
     //删除一行数据
@@ -154,8 +155,20 @@ angular.module('com.class')
                 $scope.list();
             }, error);
     };
-
-
+    $scope.code = "";
+    $scope.showCode = false;
+    $scope.show = function(){
+        $scope.showCode = !$scope.showCode;
+    }
+    $scope.doCode = function(){
+        var params = {};
+        params["do_args"] = $scope.code;
+        var url = '/' + $PROJECT + '/class/docode.do';
+        baseService.post(url, params).then(
+            function (data) {
+                $scope.codeRes = JSON.stringify(data);
+            }, error);
+    };
     $scope.list();
 
 }])
