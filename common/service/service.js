@@ -8,6 +8,41 @@ angular.module('com.common')
     function($http, $q, Socket, tools){
     this.name = 'this.name';  
 
+    function transform(data){
+        var str = [];
+        for(var key in data){
+            str.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+        }
+        return str.join("&"); // key1=value1&key2=value2
+    }
+    function onOk(result, deferred){
+        var type = "normal error warning";
+        var info = "";
+        if(result && result.data){ //网络访问正常
+            var data = result.data;
+            if(data.flag){ //操作一切正常
+                type = "normal";
+                deferred.resolve(data.data);
+            }else{ //操作数据异常
+                type = "warning";
+                deferred.reject(data.data);
+            }
+            info = data.info + " cost:" + data.time + "ms";
+        }else{ //网络异常
+            info = "异常 " + result.status + " " + result.statusText;
+            type = "error";
+            deferred.reject(result);
+        }
+        tools.closeLoad();
+        tools.tip(info, type);
+    }
+    function onError(error, deferred){
+        deferred.reject(error);
+        tools.closeLoad();
+        var str = "" + error["status"] + " " + error["statusText"];
+        tools.tip("错误 " + str, "error");
+    }
+
     this.post = function(url, params){
         tools.openLoad(3000);
 
@@ -20,40 +55,13 @@ angular.module('com.common')
             url: url,
             data: params,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            transformRequest: function(data){
-                var str = []; 
-                for(var key in data){ 
-                    str.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key])); 
-                } 
-                return str.join("&"); // key1=value1&key2=value2
-            }
+            transformRequest: transform
         }).then(
             function (result) {
-                var type = "normal error warning";
-                var info = "";
-                if(result && result.data){ //网络访问正常
-                    var data = result.data;
-                    if(data.flag){ //操作一切正常
-                        type = "normal";
-                        deferred.resolve(data.data);
-                    }else{ //操作数据异常
-                        type = "warning";
-                        deferred.reject(data.data);
-                    }
-                    info = data.info + " cost:" + data.time + "ms";
-                }else{ //网络异常
-                    info = "异常 " + result.status + " " + result.statusText;
-                    type = "error";
-                    deferred.reject(result);
-                }
-                tools.closeLoad();
-                tools.tip(info, type);
+                onOk(result, deferred);
             },
             function (error) {
-                deferred.reject(error);
-                tools.closeLoad();
-                var str = "" + error["status"] + " " + error["statusText"];
-                tools.tip("错误 " + str, "error");
+                onError(error, deferred);
             }
         );
         return deferred.promise;   
@@ -70,42 +78,13 @@ angular.module('com.common')
             url: url,
             data: params,
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            transformRequest: function(data){
-                var str = []; 
-                for(var key in data){ 
-                    str.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key])); 
-                } 
-                return str.join("&"); // key1=value1&key2=value2
-            }
+            transformRequest:transform
         }).then(
             function (result) {
-                tools.openLoad(3000);
-
-                var type = "normal error warning";
-                var info = "";
-                if(result && result.data){ //网络访问正常
-                    var data = result.data;
-                    if(data.flag){ //操作一切正常
-                        type = "normal";
-                        deferred.resolve(data.data);
-                    }else{ //操作数据异常
-                        type = "warning";
-                        deferred.reject(data.data);
-                    }
-                    info = data.info + " cost:" + data.time + "ms";
-                }else{ //网络异常
-                    info = "异常" + result.status + " " + result.statusText;
-                    type = "error";
-                    deferred.reject(result);
-                }
-                tools.closeLoad();
-                tools.tip(info, type);
+                onOk(result, deferred);
             },
             function (error) {
-                deferred.reject(error);
-                tools.closeLoad();
-                var str = "" + error["status"] + " " + error["statusText"];
-                tools.tip("错误 " + str, "error");
+                onError(error, deferred);
             }
         );
         return deferred.promise;   
