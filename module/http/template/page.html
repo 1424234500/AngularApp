@@ -15,14 +15,42 @@
                 ng-keydown="keydown($event);"
                 placeholder="{{item}}"
         >
-        <button class="btn" ng-click="get()" >get</button>
-        <button class="btn" ng-click="insert()" >insert</button>
-        <button class="btn" ng-click="update()" >update</button>
-        <button class="btn" ng-click="delete()" >delete</button>
+        <button class="btn" ng-click="make()" >构造参数</button>
+
     </div>
     <div class="clear"/>
 
     <div class="panel-body">
+        <div style="width:100%;">
+            <input style="width:70%;float:left;" ng-model="urlGet" class="form-control"/>
+            <button class="btn" ng-click="get()" >get by id</button>
+        </div>
+        <div style="width:100%;">
+            <input style="width:70%;float:left;" ng-model="urlPost" class="form-control"/>
+            <button class="btn" ng-click="post()" >post add</button>
+        </div>
+        <div style="width:100%;">
+            <input style="width:70%;float:left;" ng-model="urlPut" class="form-control"/>
+            <button class="btn" ng-click="put()" >put update</button>
+        </div>
+        <div style="width:100%;">
+            <input style="width:70%;float:left;" ng-model="urlDelete" class="form-control"/>
+            <button class="btn" ng-click="delete()" >delete by id</button>
+        </div>
+
+
+        <div style="width:48%;float:left;">
+            参数
+            <textarea style="height:100px;width:100%" ng-model="argsStr"></textarea>
+        </div>
+
+        <div style="width:48%;float:right;">
+            调用结果
+            <textarea style="height:100px;width:100%" ng-model="res"></textarea>
+        </div>
+
+
+
         <table class="table table-hover">
             <thead>
             <tr class="colorChromeTitle">

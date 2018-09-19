@@ -4,10 +4,11 @@
 *
 */
 angular.module('com.common')
-.service('baseService',['$http', '$q', 'Socket', 'tools',
-    function($http, $q, Socket, tools){
-    this.name = 'this.name';  
-
+.service('baseService',['$http', '$q', 'Socket', 'tools', function($http, $q, Socket, tools){
+    this.name = 'this.name';
+    function openLoad(){
+        tools.openLoad(3000);
+    }
     function transform(data){
         var str = [];
         for(var key in data){
@@ -44,8 +45,7 @@ angular.module('com.common')
     }
 
     this.post = function(url, params){
-        tools.openLoad(3000);
-
+        openLoad();
         url = url ? url : ' undefined !!!! ';
         params = params ? params : {};
         info("post.url:" + url + ":" + JSON.stringify(params));
@@ -53,7 +53,8 @@ angular.module('com.common')
         $http({
             method: 'POST',
             url: url,
-            data: params,
+            //params:params, //put 只能像get一样拼接url参数？
+            data: params, //post必须data字段传递
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest: transform
         }).then(
@@ -66,9 +67,32 @@ angular.module('com.common')
         );
         return deferred.promise;   
     };
-
+    this.put = function(url, params){
+        openLoad();
+        url = url ? url : ' undefined !!!! ';
+        params = params ? params : {};
+        info("put.url:" + url + ":" + JSON.stringify(params));
+        var deferred = $q.defer();
+        $http({
+            method: 'PUT',
+            url: url,
+            params:params, //put 只能像get一样拼接url参数？
+            //data: params,//post必须data字段传递
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest: transform
+        }).then(
+            function (result) {
+                onOk(result, deferred);
+            },
+            function (error) {
+                onError(error, deferred);
+            }
+        );
+        return deferred.promise;
+    };
 
     this.get = function(url, params){
+        openLoad();
         url = url ? url : ' undefined !!!! ';
         params = params ? params : {};
         info("get.url:" + url + ":" + JSON.stringify(params));
@@ -76,7 +100,8 @@ angular.module('com.common')
         $http({
             method: 'GET',
             url: url,
-            data: params,
+            params:params, //put 只能像get一样拼接url参数？
+            //data: params,//post必须data字段传递
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             transformRequest:transform
         }).then(
@@ -89,7 +114,29 @@ angular.module('com.common')
         );
         return deferred.promise;   
     };
-
+    this.delete = function(url, params){
+        openLoad();
+        url = url ? url : ' undefined !!!! ';
+        params = params ? params : {};
+        info("delete.url:" + url + ":" + JSON.stringify(params));
+        var deferred = $q.defer();
+        $http({
+            method: 'DELETE',
+            url: url,
+            params:params, //put 只能像get一样拼接url参数？
+            //data: params,//post必须data字段传递
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            transformRequest:transform
+        }).then(
+            function (result) {
+                onOk(result, deferred);
+            },
+            function (error) {
+                onError(error, deferred);
+            }
+        );
+        return deferred.promise;
+    };
     this.test = function(url, params, result){
         info("post");
         info("url: " + url );
