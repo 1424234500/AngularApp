@@ -3,7 +3,7 @@ angular.module('com.http')
 
 .controller('com.http.pageCtrl', ['$PROJECT','$scope', '$rootScope', '$state', 'baseService','tools', function ($PROJECT, $scope, $rootScope, $state, baseService, tools) {
     //嵌套路由 scope可访问 <任意module> 的上层html的 ctrl/scope
-    var mName = 'http';
+    var mName = 'http-rest';
     $scope.mName = mName;
     $scope.search = {}; //查询
     $scope.orderType = 'TYPE'; //排序
@@ -30,7 +30,7 @@ angular.module('com.http')
         $scope.args = "";
         baseService.get(url, {}).then(
             function (data) {
-                $scope.res = data;
+                $scope.res = JSON.stringify(data);
             }, error);
     };
     $scope.post = function(){
@@ -38,7 +38,7 @@ angular.module('com.http')
         var params = $scope.search;
         baseService.post(url, params).then(
             function (data) {
-                $scope.res = data;
+                $scope.res = JSON.stringify(data);
             }, error);
     };
     $scope.put = function(){
@@ -46,7 +46,7 @@ angular.module('com.http')
         var params = $scope.search;
         baseService.put(url, params).then(
             function (data) {
-                $scope.res = data;
+                $scope.res = JSON.stringify(data);
             }, error);
     };
     $scope.delete = function(){
@@ -54,16 +54,16 @@ angular.module('com.http')
         $scope.args = "";
         baseService.delete(url, {}).then(
             function (data) {
-                $scope.res = data;
+                $scope.res = JSON.stringify(data);
             }, error);
     };
     $scope.make = function(){
         $scope.argsStr = JSON.stringify($scope.search);
     };
-    $scope.urlGet = '/' + $PROJECT + '/restful/make.do/2203';
+    $scope.urlGet = '/' + $PROJECT + '/restful/2203/make.do';
     $scope.urlPost = '/' + $PROJECT + '/restful/make.do';
     $scope.urlPut = '/' + $PROJECT + '/restful/make.do';
-    $scope.urlDelete = '/' + $PROJECT + '/restful/make.do/2204';
+    $scope.urlDelete = '/' + $PROJECT + '/restful/2204/make.do';
 
 
 

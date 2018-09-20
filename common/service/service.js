@@ -55,7 +55,7 @@ angular.module('com.common')
             url: url,
             //params:params, //put 只能像get一样拼接url参数？
             data: params, //post必须data字段传递
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', "Access-Control-Allow-Origin": "*"},
             transformRequest: transform
         }).then(
             function (result) {
@@ -102,7 +102,7 @@ angular.module('com.common')
             url: url,
             params:params, //put 只能像get一样拼接url参数？
             //data: params,//post必须data字段传递
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', "Access-Control-Allow-Origin": "*"},
             transformRequest:transform
         }).then(
             function (result) {
